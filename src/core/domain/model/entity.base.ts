@@ -7,7 +7,10 @@ export interface BaseEntityProps {
   updatedAt: Date;
 }
 
-export interface CreateEntityProps<EntityProps> extends BaseEntityProps {
+export interface CreateEntityProps<EntityProps> {
+  id: AggregateId;
+  createdAt?: Date;
+  updatedAt?: Date;
   props: EntityProps;
 }
 
@@ -26,8 +29,9 @@ export abstract class BaseEntity<EntityProps> extends BaseAggregateRoot {
     super();
     this.setId(props.id);
     this.props = props.props;
-    this._createdAt = props.createdAt;
-    this._updatedAt = props.updatedAt;
+    const now = new Date();
+    this._createdAt = props.createdAt || now;
+    this._updatedAt = props.updatedAt || now;
 
     this.validate();
   }
