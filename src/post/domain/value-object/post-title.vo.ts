@@ -1,3 +1,4 @@
+import { PostTitleTooLongException } from 'src/core/domain/exception/post-title-too-long.exception';
 import { ValueObject } from 'src/core/domain/model/value-object';
 
 interface PostTitleProps {
@@ -7,7 +8,7 @@ interface PostTitleProps {
 export class PostTitle extends ValueObject<PostTitleProps> {
   protected validate(props: PostTitleProps): void {
     if (props.value.length >= 300) {
-      throw new Error('Post title cannot be longer than 300 characters');
+      throw new PostTitleTooLongException();
     }
   }
 
