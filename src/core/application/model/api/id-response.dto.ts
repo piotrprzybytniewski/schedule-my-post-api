@@ -5,6 +5,10 @@ export class IdResponseDto {
   readonly id: string;
 
   constructor(id: string) {
+    if (!id) {
+      throw new Error('Id cannot be empty');
+    }
+
     this.id = id;
   }
 }
