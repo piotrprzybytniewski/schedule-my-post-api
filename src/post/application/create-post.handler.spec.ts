@@ -19,7 +19,6 @@ describe('CreatePostHandler', () => {
 
   it('should save a new drafted post', () => {
     const input: CreatePostCommand = {
-      id: '123',
       title: 'Test Post',
       content: 'Test content',
       flairs: null,
