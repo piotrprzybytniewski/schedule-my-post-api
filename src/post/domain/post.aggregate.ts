@@ -62,6 +62,12 @@ export class PostAggregate extends AggregateRoot<PostProps> {
     this.apply(new PostWasPublished(this._id));
   }
 
+  updatePostExternalId(externalPostId: string): void {
+    if (this.props.externalId) throw new Error('External post id already set');
+
+    this.props.externalId = externalPostId;
+  }
+
   private changeStatus(status: PostStatus): void {
     this.props.status = status;
   }

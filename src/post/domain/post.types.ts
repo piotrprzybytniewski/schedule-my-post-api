@@ -16,4 +16,7 @@ export interface CreatePostProps {
 
 export interface PostProps extends CreatePostProps {
   status: PostStatus;
+  externalId?: PostExternalId;
 }
+
+export type PostExternalId = string;
