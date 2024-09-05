@@ -22,6 +22,7 @@ export function mainConfig(app: INestApplication) {
     )
     .setVersion('1.0')
     .addTag('posts')
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
