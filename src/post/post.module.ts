@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
-import { CreatePostHandler } from './application/create-post.handler';
+import { CreatePostHandler } from './application/create-post/create-post.handler';
 import { POST_REPOSITORY } from './domain/post.repository.port';
 import { PostRepositoryAdapter } from './infrastructure/persistence/post.repository.adapter';
 import { MongooseModule } from '@nestjs/mongoose';

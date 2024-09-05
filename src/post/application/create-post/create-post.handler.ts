@@ -4,12 +4,12 @@ import { Inject } from '@nestjs/common';
 import {
   POST_REPOSITORY,
   PostRepositoryPort,
-} from '../domain/post.repository.port';
-import { PostAggregate } from '../domain/post.aggregate';
-import { PostCreatorId } from '../domain/value-object/post-creator-id.vo';
-import { PostTitle } from '../domain/value-object/post-title.vo';
-import { PostContent } from '../domain/value-object/post-content.vo';
-import { PostFlairs } from '../domain/value-object/post-flairs.vo';
+} from '../../domain/post.repository.port';
+import { PostAggregate } from '../../domain/post.aggregate';
+import { PostCreatorId } from '../../domain/value-object/post-creator-id.vo';
+import { PostTitle } from '../../domain/value-object/post-title.vo';
+import { PostContent } from '../../domain/value-object/post-content.vo';
+import { PostFlairs } from '../../domain/value-object/post-flairs.vo';
 import { AggregateId } from 'src/core/domain/model/entity.base';
 
 @CommandHandler(CreatePostCommand)

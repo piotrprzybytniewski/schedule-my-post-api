@@ -1,8 +1,8 @@
 import {
   POST_REPOSITORY,
   PostRepositoryPort,
-} from '../domain/post.repository.port';
-import { AllowedPostStatuses } from '../domain/value-object/post-status.vo';
+} from '../../domain/post.repository.port';
+import { AllowedPostStatuses } from '../../domain/value-object/post-status.vo';
 import { CreatePostCommand } from './create-post.command';
 import { CreatePostHandler } from './create-post.handler';
 import { Mocked, TestBed } from '@suites/unit';

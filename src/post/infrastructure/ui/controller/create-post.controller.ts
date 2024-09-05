@@ -17,8 +17,8 @@ import { User } from 'src/auth/application/user.dto';
 import { API_POSTS_TAG } from 'src/constants';
 import { ApiErrorResponse } from 'src/core/application/model/api/api-error-response.dto';
 import { IdResponseDto } from 'src/core/application/model/api/id-response.dto';
-import { CreatePostCommand } from 'src/post/application/create-post.command';
-import { CreatePostDto } from 'src/post/application/create-post.dto';
+import { CreatePostCommand } from 'src/post/application/create-post/create-post.command';
+import { CreatePostDto } from 'src/post/application/create-post/create-post.dto';
 
 @Controller('posts')
 @ApiTags(API_POSTS_TAG)
