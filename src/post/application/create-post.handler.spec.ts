@@ -17,7 +17,7 @@ describe('CreatePostHandler', () => {
     postRepository = unitRef.get(POST_REPOSITORY);
   });
 
-  it('should save a new drafted post', () => {
+  it('should save a new drafted post', async () => {
     const input: CreatePostCommand = {
       title: 'Test Post',
       content: 'Test content',
@@ -26,7 +26,7 @@ describe('CreatePostHandler', () => {
       creatorId: '123',
     };
 
-    const result = handler.execute(input);
+    const result = await handler.execute(input);
 
     expect(postRepository.save).toHaveBeenCalledTimes(1);
     expect(postRepository.save).toHaveBeenCalledWith(
@@ -40,6 +40,7 @@ describe('CreatePostHandler', () => {
         }),
       }),
     );
-    expect(result).resolves.toBeUndefined();
+
+    expect(result).toBeDefined();
   });
 });

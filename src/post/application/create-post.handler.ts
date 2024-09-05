@@ -10,6 +10,7 @@ import { PostCreatorId } from '../domain/value-object/post-creator-id.vo';
 import { PostTitle } from '../domain/value-object/post-title.vo';
 import { PostContent } from '../domain/value-object/post-content.vo';
 import { PostFlairs } from '../domain/value-object/post-flairs.vo';
+import { AggregateId } from 'src/core/domain/model/entity.base';
 
 @CommandHandler(CreatePostCommand)
 export class CreatePostHandler implements ICommandHandler<CreatePostCommand> {
@@ -18,7 +19,7 @@ export class CreatePostHandler implements ICommandHandler<CreatePostCommand> {
     private readonly postRepository: PostRepositoryPort,
   ) {}
 
-  public async execute(command: CreatePostCommand): Promise<void> {
+  public async execute(command: CreatePostCommand): Promise<AggregateId> {
     const post = PostAggregate.create({
       creatorId: new PostCreatorId({ value: command.creatorId }),
       title: new PostTitle({ value: command.title }),
@@ -30,6 +31,12 @@ export class CreatePostHandler implements ICommandHandler<CreatePostCommand> {
       schedules: [],
     });
 
-    this.postRepository.save(post);
+    try {
+      await this.postRepository.save(post);
+
+      return post.id;
+    } catch (error) {
+      throw new Error(error.message);
+    }
   }
 }
