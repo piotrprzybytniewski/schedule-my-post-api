@@ -13,6 +13,7 @@ import {
 } from '../../domain/value-object/post-status.vo';
 import { PublishPostCommand } from './publish-post.command';
 import { PublishPostHandler } from './publish-post.handler';
+
 describe('PublishPostHandler', () => {
   let handler: PublishPostHandler;
   let postRepository: Mocked<PostRepositoryPort>;
