@@ -6,6 +6,7 @@ import { AuthModule } from 'src/auth/auth.module';
 import { ConfigModule } from 'src/config/config.module';
 import { MockAuthGuard } from './mock-auth.guard';
 import { mainConfig } from 'src/main.config';
+import { UserModule } from 'src/user/user.module';
 
 /**
  * Create a testing app with base configuration
@@ -19,7 +20,7 @@ export async function createTestingApp(
 
   const testingModule: TestingModule = await Test.createTestingModule({
     ...moduleMetadata,
-    imports: [...imports, CqrsModule, ConfigModule, AuthModule],
+    imports: [...imports, CqrsModule, ConfigModule, AuthModule, UserModule],
   })
     .overrideProvider(JwtAuthGuard)
     .useClass(MockAuthGuard)
