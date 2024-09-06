@@ -12,11 +12,11 @@ export interface CreatePostProps {
   flairs: PostFlairs | null;
   nsfw: boolean;
   schedules: PostSchedule[];
+  externalId?: PostExternalId;
 }
 
 export interface PostProps extends CreatePostProps {
   status: PostStatus;
-  externalId?: PostExternalId;
 }
 
 export type PostExternalId = string;

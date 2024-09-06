@@ -34,6 +34,11 @@ export class Post {
   })
   nsfw: boolean;
 
+  @Prop({
+    required: false,
+  })
+  externalId: string;
+
   constructor(init?: Partial<Post>) {
     Object.assign(this, init);
   }

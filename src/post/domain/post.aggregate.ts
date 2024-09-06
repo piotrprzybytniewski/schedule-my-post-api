@@ -4,7 +4,7 @@ import { AggregateId } from 'src/core/domain/model/entity.base';
 import { PostWasDrafted } from './event/post-was-drafted.event';
 import { PostWasPublished } from './event/post-was-published.event';
 import { PostWasScheduled } from './event/post-was-scheduled.event';
-import { CreatePostProps, PostProps } from './post.types';
+import { CreatePostProps, PostExternalId, PostProps } from './post.types';
 import { PostFlairs } from './value-object/post-flairs.vo';
 import { AllowedPostStatuses, PostStatus } from './value-object/post-status.vo';
 import { PostSchedule } from './value-object/post-schedule.vo';
@@ -104,5 +104,9 @@ export class PostAggregate extends AggregateRoot<PostProps> {
 
   get schedules(): PostSchedule[] {
     return this.props.schedules;
+  }
+
+  get externalId(): PostExternalId {
+    return this.props.externalId;
   }
 }

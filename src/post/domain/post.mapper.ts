@@ -26,6 +26,7 @@ export class PostMapper implements Mapper<PostAggregate, Post> {
           : null,
         nsfw: dbModel.nsfw,
         schedules: [],
+        externalId: dbModel.externalId,
       },
       dbModel._id,
     );
