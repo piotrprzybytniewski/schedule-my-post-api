@@ -7,6 +7,9 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Post, PostSchema } from './domain/model/post.model';
 import { PostMapper } from './domain/post.mapper';
 import { CreatePostController } from './infrastructure/ui/controller/create-post.controller';
+import { PLATFORM_PUBLISHING_SERVICE } from './infrastructure/port/platform-publishing.port';
+import { RedditPublishingAdapter } from './infrastructure/adapter/reddit-publishing.adapter';
+import { RedditApiClient } from './infrastructure/api/reddit-api.client';
 
 @Module({
   imports: [
@@ -25,6 +28,11 @@ import { CreatePostController } from './infrastructure/ui/controller/create-post
       provide: POST_REPOSITORY,
       useClass: PostRepositoryAdapter,
     },
+    {
+      provide: PLATFORM_PUBLISHING_SERVICE,
+      useClass: RedditPublishingAdapter,
+    },
+    RedditApiClient,
     PostMapper,
   ],
   exports: [MongooseModule],
