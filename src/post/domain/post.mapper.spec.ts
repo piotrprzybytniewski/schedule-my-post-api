@@ -32,6 +32,7 @@ describe('PostMapper', () => {
       content: 'This is a valid post content',
       flairs: null,
       nsfw: false,
+      externalId: null,
     };
     const post = mapper.toDomain(dbModel);
 
