@@ -1,6 +1,8 @@
 import { INestApplication } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+import { Test, TestingModule } from '@nestjs/testing';
 import { MongoMemoryServer } from 'mongodb-memory-server';
+import { mainConfig } from 'src/main.config';
 import { PostAggregate } from 'src/post/domain/post.aggregate';
 import { PostMapper } from 'src/post/domain/post.mapper';
 import { POST_REPOSITORY } from 'src/post/domain/post.repository.port';
@@ -8,7 +10,7 @@ import { PostContent } from 'src/post/domain/value-object/post-content.vo';
 import { PostCreatorId } from 'src/post/domain/value-object/post-creator-id.vo';
 import { PostTitle } from 'src/post/domain/value-object/post-title.vo';
 import { PostModule } from 'src/post/post.module';
-import { createTestingApp } from 'test/e2e.utils';
+import { e2eBaseImports } from 'test/e2e.utils';
 import { postSeedData, seedInitialPosts } from 'test/posts.seed';
 import { PostRepositoryAdapter } from './post.repository.adapter';
 
@@ -23,8 +25,12 @@ describe('PostRepositoryAdapter', () => {
     testDbUri = mongoServer.getUri();
     await seedInitialPosts(testDbUri);
 
-    app = await createTestingApp({
-      imports: [PostModule, MongooseModule.forRoot(testDbUri)],
+    const testingModule: TestingModule = await Test.createTestingModule({
+      imports: [
+        PostModule,
+        MongooseModule.forRoot(testDbUri),
+        ...e2eBaseImports,
+      ],
       providers: [
         {
           provide: POST_REPOSITORY,
@@ -32,7 +38,13 @@ describe('PostRepositoryAdapter', () => {
         },
         PostMapper,
       ],
-    });
+    }).compile();
+
+    app = testingModule.createNestApplication();
+
+    mainConfig(app);
+
+    await app.init();
 
     postRepository = app.get(POST_REPOSITORY);
   });
