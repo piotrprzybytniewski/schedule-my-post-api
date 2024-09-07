@@ -28,16 +28,20 @@ export class PostWasPublishedHandler
   ) {}
 
   async handle(event: PostWasPublished): Promise<void> {
+    const post = await this.postRepository.findOneById(event.postId);
+
+    if (!post) {
+      throw new Error('Post not found');
+    }
+
+    const creatorRefreshToken =
+      await this.userRepository.findRefreshTokenByUserId(post.creatorId);
+
+    if (!creatorRefreshToken) {
+      throw new Error('Refresh token not found for user ' + post.creatorId);
+    }
+
     try {
-      const post = await this.postRepository.findOneById(event.postId);
-
-      const creatorRefreshToken =
-        await this.userRepository.findRefreshTokenByUserId(post.creatorId);
-
-      if (!creatorRefreshToken) {
-        throw new Error('Refresh token not found for user ' + post.creatorId);
-      }
-
       const externalPostId = await this.platformPublishing.publish(
         post.id,
         post.title,
